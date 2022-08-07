@@ -1,6 +1,8 @@
 [workspace]
 members = [
-    "e_modulo",
+    "c_robot_in_ahallway",
+    "b_permutation_chain",
+    "a23_moves",
     "main",
     "algo_lib",
 ]

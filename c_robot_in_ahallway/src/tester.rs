@@ -54,7 +54,7 @@ pub(crate) fn run_tests() -> bool {
     let yellow = "\x1B[33m";
     let def = "\x1B[0m";
     let time_limit = std::time::Duration::from_millis(2000);
-    let mut paths = std::fs::read_dir("./e_modulo/tests/")
+    let mut paths = std::fs::read_dir("./c_robot_in_ahallway/tests/")
         .unwrap()
         .map(|res| res.unwrap())
         .collect::<Vec<_>>();
