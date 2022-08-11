@@ -3,56 +3,19 @@ pub mod solution {
 use crate::io::input::Input;
 use crate::io::output::output;
 use crate::{out, out_line};
-use std::collections::BTreeMap;
 
 fn solve(input: &mut Input, _test_case: usize) {
-    let m: usize = input.read();
-    let a: Vec<i32> = input.read_vec(m);
-    let b: Vec<i32> = input.read_vec(m);
-
-
-    let mut v = a.clone();
-    for i in (0..m).rev() {
-        v.push(b[i]);
+    let mut n: u64 = input.read();
+    let mut ans = 0;
+    while n%2 != 1 {
+        n >>= 1;
+        ans += 1;
     }
-
-    let mut lp = vec![v[0]];
-    for i in 1..m*2 {
-        lp.push((v[i]-i as i32).max(lp[i-1]));
+    while n!=0 {
+        n >>= 1;
+        ans += n%2;
     }
-    let mut rp: Vec<i32> = vec![*v.last().unwrap()];
-    for i in 1..m*2 {
-        rp.push(*rp.last().unwrap().max(&(v[m*2-i-1]-i as i32)));
-    }
-
-    let mut app = vec![0; m];
-
-    for i in 0..m {
-        if i%2 == 0 {
-            app[i] = rp[m*2-i-1];
-        }else {
-            app[i] = lp[m*2-i-1];
-        }
-    }
-
-    let mut result = vec![0; m];
-    let mut ans = i32::MAX;
-    let mut time = -1;
-    for i in 0..m {
-        time += 1;
-        if i%2 == 0 {
-            time += (a[i]-time).max(0);
-            time += 1;
-            time += (b[i]-time).max(0);
-        }
-        else {
-            time += (b[i]-time).max(0);
-            time += 1;
-            time += (a[i]-time).max(0);
-        }
-        result[i] = time+(app[i]-time).max(0);
-    }
-    out_line!(*result.iter().min().unwrap());
+    out_line!(if ans%2==1 {"Louise"} else {"Richard"});
 }
 
 pub(crate) fn run(mut input: Input) -> bool {

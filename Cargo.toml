@@ -1,8 +1,15 @@
 [workspace]
 members = [
-    "c_robot_in_ahallway",
-    "b_permutation_chain",
-    "a23_moves",
+    "counter_game",
+    "maximizing_xor",
+    "lonely_integer",
+    "abbreviation",
+    "sherlock_and_cost",
+    "the_coin_change_problem",
+    "heap_test",
+    "synchronous_shopping",
+    "journey_to_the_moon",
+    "generate_parentheses",
     "main",
     "algo_lib",
 ]

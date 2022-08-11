@@ -32,6 +32,20 @@
       <sourceFolder url="file://$MODULE_DIR$/f_build_atree_and_that_is_it/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/c_strange_test/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/c_strange_test/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/abbreviation/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/abbreviation/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/generate_parentheses/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/generate_parentheses/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/heap_test/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/heap_test/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/journey_to_the_moon/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/journey_to_the_moon/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/sherlock_and_cost/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/sherlock_and_cost/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/synchronous_shopping/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/synchronous_shopping/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/the_coin_change_problem/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/the_coin_change_problem/tests" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />
