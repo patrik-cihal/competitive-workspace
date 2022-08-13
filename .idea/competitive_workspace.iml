@@ -46,6 +46,16 @@
       <sourceFolder url="file://$MODULE_DIR$/synchronous_shopping/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/the_coin_change_problem/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/the_coin_change_problem/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/counter_game/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/counter_game/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/lonely_integer/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/lonely_integer/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/maximizing_xor/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/maximizing_xor/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/new_year_chaos/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/new_year_chaos/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/password_cracker/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/password_cracker/tests" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />
