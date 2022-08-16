@@ -56,6 +56,36 @@
       <sourceFolder url="file://$MODULE_DIR$/new_year_chaos/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/password_cracker/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/password_cracker/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/a_wonderful_permutation/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/a_wonderful_permutation/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/b_woeful_permutation/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/b_woeful_permutation/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/c_robot_in_ahallway/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/c_robot_in_ahallway/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/c_sort_zero/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/c_sort_zero/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/d_empty_graph/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/d_empty_graph/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/a_find_array/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/a_find_array/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/b_build_the_permutation/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/b_build_the_permutation/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/c_game_master/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/c_game_master/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/e1_lcmsum_easy_version/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/e1_lcmsum_easy_version/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/a_chip_game/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/a_chip_game/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/b_mathematical_circus/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/b_mathematical_circus/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/c_fighting_tournament/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/c_fighting_tournament/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/d1_burenka_and_traditions_easy_version/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/d1_burenka_and_traditions_easy_version/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/d2_burenka_and_traditions_hard_version/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/d2_burenka_and_traditions_hard_version/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/d_tournament_countdown/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/d_tournament_countdown/tests" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />
