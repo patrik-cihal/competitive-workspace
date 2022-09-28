@@ -1,44 +1,40 @@
 pub mod solution {
 
-use std::collections::{BTreeMap, BTreeSet};
 use crate::io::input::Input;
 use crate::io::output::output;
 use crate::{out, out_line};
 
+fn combinations(n: usize, mut s: Vec<bool>, r: u32, k: u32) -> Vec<Vec<bool>> {
+    if n == 0 {
+        return vec![s];
+    }
+    let mut s2 = s.clone();
+    s.push(true);
+    s2.push(false);
+
+    let mut answer = if r<k {combinations(n-1, s, r+1, k)} else {vec![]};
+    answer.append(&mut combinations(n-1, s2, 0, k));
+    answer
+}
+
 fn solve(input: &mut Input, _test_case: usize) {
     let n: usize = input.read();
+    let k: u32 = input.read();
 
-    let v: Vec<i32> = input.read_vec(n);
+    let mut answer: Vec<String> = vec![];
+    let combinations = combinations(n, vec![], 0, k);
 
-    let mut mp = BTreeSet::new();
-    let mut result = 0;
-
-    // create map where we store v[i]^passed
-    // if new element is in map then add to result
-
-    let mut p = 0;
-    mp.insert(0);
-    for i in 0..n {
-        if mp.contains(&(v[i]^p)) {
-            result += 1;
-            mp = BTreeSet::new();
-            mp.insert(0);
-            p = 0;
-        }
-        else {
-            p ^= v[i];
-            mp.insert(p);
-        }
+    for comb in combinations {
+        answer.push(comb.iter().map(|x| if *x {'1'} else {'0'}).collect())
     }
 
-    out_line!(n-result);
+    out_line!(answer);
+    out_line!(answer.len());
+
 }
 
 pub(crate) fn run(mut input: Input) -> bool {
-    let t = input.read();
-    for i in 0usize..t {
-        solve(&mut input, i + 1);
-    }
+    solve(&mut input, 1);
     output().flush();
     input.skip_whitespace();
     !input.peek().is_some()

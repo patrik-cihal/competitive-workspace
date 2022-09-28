@@ -86,6 +86,75 @@
       <sourceFolder url="file://$MODULE_DIR$/d2_burenka_and_traditions_hard_version/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/d_tournament_countdown/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/d_tournament_countdown/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/next_permutation/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/next_permutation/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/a_burenka_plays_with_fractions/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/a_burenka_plays_with_fractions/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/b_interesting_sum/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/b_interesting_sum/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/c_corners/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/c_corners/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/a_crossmarket/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/a_crossmarket/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/b_beautiful_array/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/b_beautiful_array/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/c_monoblock/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/c_monoblock/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/d2_doors/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/d2_doors/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/b_fox_and_two_dots/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/b_fox_and_two_dots/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/a_review_site/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/a_review_site/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/b_gcdlength/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/b_gcdlength/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/c_yet_another_card_deck/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/c_yet_another_card_deck/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/d_min_cost_string/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/d_min_cost_string/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/almost_sorted/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/almost_sorted/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/bear_and_steady_gene/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/bear_and_steady_gene/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/a_image/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/a_image/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/b_deadly_laser/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/b_deadly_laser/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/c_min_max_array_transformation/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/c_min_max_array_transformation/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/d_maximum_and/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/d_maximum_and/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/problem_asolving_for_carrots/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/problem_asolving_for_carrots/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/problem_bpot/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/problem_bpot/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/problem_cnsum/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/problem_cnsum/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/problem_dr2/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/problem_dr2/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/problem_enasty_hacks/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/problem_enasty_hacks/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/darkcorners/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/darkcorners/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/sudoku_solver/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/inovative_visualization/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/inovative_visualization/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/binary_combinations/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/binary_combinations/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/count_inversions/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/count_inversions/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/inappropriate_gift/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/inappropriate_gift/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/kthsmallest/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/kthsmallest/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/merge_soort/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/merge_soort/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/minimax_sum/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/minimax_sum/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/quick_sort/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/quick_sort/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/test2/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/test2/tests" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />

@@ -1,5 +1,25 @@
 [workspace]
 members = [
+    "binary_combinations",
+    "kthsmallest",
+    "count_inversions",
+    "merge_soort",
+    "quick_sort",
+    "test2",
+    "inappropriate_gift",
+    "minimax_sum",
+    "inovative_visualization",
+    "darkcorners",
+    "problem_enasty_hacks",
+    "problem_dr2",
+    "problem_cnsum",
+    "problem_bpot",
+    "problem_asolving_for_carrots",
+    "d_maximum_and",
+    "c_min_max_array_transformation",
+    "b_deadly_laser",
+    "a_image",
     "main",
     "algo_lib",
+    "sudoku_solver"
 ]
