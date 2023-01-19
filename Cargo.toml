@@ -6,7 +6,6 @@ members = [
     "a_parallel_projection",
     "b_quick_sort",
     "a_greatest_convex",
-    "tea_distribution",
     "a_make_it_beautiful",
     "main",
     "algo_lib",
