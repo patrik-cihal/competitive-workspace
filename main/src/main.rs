@@ -1,40 +1,83 @@
 pub mod solution {
 
+use std::collections::{BTreeMap, BTreeSet};
+
 use crate::io::input::Input;
 use crate::io::output::output;
 use crate::{out, out_line};
 
-fn combinations(n: usize, mut s: Vec<bool>, r: u32, k: u32) -> Vec<Vec<bool>> {
-    if n == 0 {
-        return vec![s];
+fn perfect_square(x: u128) -> bool
+{
+    let (mut left, mut right) = (1, x);
+ 
+    while left <= right {
+        let mid: u128= (left + right) / 2;
+ 
+        if mid * mid == x {
+            return true;
+        }
+        else if mid * mid < x {
+            left = mid + 1;
+        }
+        else {
+            right = mid - 1;
+        }
     }
-    let mut s2 = s.clone();
-    s.push(true);
-    s2.push(false);
-
-    let mut answer = if r<k {combinations(n-1, s, r+1, k)} else {vec![]};
-    answer.append(&mut combinations(n-1, s2, 0, k));
-    answer
+    return false;
 }
 
 fn solve(input: &mut Input, _test_case: usize) {
     let n: usize = input.read();
-    let k: u32 = input.read();
 
-    let mut answer: Vec<String> = vec![];
-    let combinations = combinations(n, vec![], 0, k);
+    let mut a: Vec<u64> = input.read_vec(n);
+    a.sort();
 
-    for comb in combinations {
-        answer.push(comb.iter().map(|x| if *x {'1'} else {'0'}).collect())
+    let mut results = BTreeMap::new();
+
+    for i in 0..n {
+        for j in i+1..n {
+            if (a[j]-a[i]) % 2 == 0 {
+                continue;
+            }
+            let offset = ((a[j]-a[i])/2).pow(2);
+
+            if offset < a[i] {
+                continue;
+            }
+
+            let offset = offset-a[i];
+
+            if !results.contains_key(&offset) {
+                let result = a.iter().filter(|&&x| perfect_square((x+offset) as u128)).count();
+                results.insert(offset, result);
+            }
+        }
     }
 
-    out_line!(answer);
-    out_line!(answer.len());
+    let mut answer : Option<(usize, u64)> = None;
 
+    for (result, count) in results.into_iter() {
+        if let Some(answer) = &mut answer {
+            *answer = *answer.max(&mut (count, result));
+        }
+        else {
+            answer = Some((count, result));
+        }
+    }
+
+    if let Some(answer) = answer {
+        out_line!(answer.0);
+    }
+    else {
+        out_line!(1);
+    }
 }
 
 pub(crate) fn run(mut input: Input) -> bool {
-    solve(&mut input, 1);
+    let t = input.read();
+    for i in 0usize..t {
+        solve(&mut input, i + 1);
+    }
     output().flush();
     input.skip_whitespace();
     !input.peek().is_some()
