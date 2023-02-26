@@ -1,0 +1,14 @@
+[package]
+<<<<<<<< HEAD:segment-tree-test/Cargo.toml
+name = "segment-tree-test"
+========
+name = "a_make_it_beautiful"
+>>>>>>>> 53fdd8eaa5da12868d0d145b94f93ce27a9e688a:a_make_it_beautiful/Cargo.toml
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+algo_lib = {path = "../algo_lib"}
+
+[build-dependencies]
+rust_competitive_helper_util = {git = "https://github.com/rust-competitive-helper/rust-competitive-helper"}

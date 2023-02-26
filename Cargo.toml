@@ -1,12 +1,6 @@
 [workspace]
 members = [
-    "d_many_perfect_squares",
-    "c_equal_frequencies",
-    "b_going_to_the_cinema",
-    "a_parallel_projection",
-    "b_quick_sort",
-    "a_greatest_convex",
-    "a_make_it_beautiful",
+    "test_task",
     "main",
     "algo_lib",
 ]

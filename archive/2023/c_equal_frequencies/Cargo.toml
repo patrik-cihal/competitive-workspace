@@ -1,0 +1,15 @@
+[package]
+<<<<<<<< HEAD:b_ideal_point/Cargo.toml
+name = "b_ideal_point"
+========
+name = "c_equal_frequencies"
+>>>>>>>> 53fdd8eaa5da12868d0d145b94f93ce27a9e688a:c_equal_frequencies/Cargo.toml
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+algo_lib = {path = "../algo_lib"}
+rand = "0.8.5"
+
+[build-dependencies]
+rust_competitive_helper_util = {git = "https://github.com/rust-competitive-helper/rust-competitive-helper"}

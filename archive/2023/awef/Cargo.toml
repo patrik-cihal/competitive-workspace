@@ -1,0 +1,14 @@
+[package]
+<<<<<<<< HEAD:awef/Cargo.toml
+name = "awef"
+========
+name = "a_greatest_convex"
+>>>>>>>> 53fdd8eaa5da12868d0d145b94f93ce27a9e688a:a_greatest_convex/Cargo.toml
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+algo_lib = {path = "../algo_lib"}
+
+[build-dependencies]
+rust_competitive_helper_util = {git = "https://github.com/rust-competitive-helper/rust-competitive-helper"}
