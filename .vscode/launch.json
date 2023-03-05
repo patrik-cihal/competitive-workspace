@@ -1,0 +1,249 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug executable 'd_maximum_subarray'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=d_maximum_subarray",
+                    "--package=d_maximum_subarray"
+                ],
+                "filter": {
+                    "name": "d_maximum_subarray",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in executable 'd_maximum_subarray'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--bin=d_maximum_subarray",
+                    "--package=d_maximum_subarray"
+                ],
+                "filter": {
+                    "name": "d_maximum_subarray",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in library 'algo_lib'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--lib",
+                    "--package=algo_lib"
+                ],
+                "filter": {
+                    "name": "algo_lib",
+                    "kind": "lib"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug executable 'd_counting_factorizations'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=d_counting_factorizations",
+                    "--package=d_counting_factorizations"
+                ],
+                "filter": {
+                    "name": "d_counting_factorizations",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in executable 'd_counting_factorizations'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--bin=d_counting_factorizations",
+                    "--package=d_counting_factorizations"
+                ],
+                "filter": {
+                    "name": "d_counting_factorizations",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug executable 'c_scoring_subsequences'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=c_scoring_subsequences",
+                    "--package=c_scoring_subsequences"
+                ],
+                "filter": {
+                    "name": "c_scoring_subsequences",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in executable 'c_scoring_subsequences'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--bin=c_scoring_subsequences",
+                    "--package=c_scoring_subsequences"
+                ],
+                "filter": {
+                    "name": "c_scoring_subsequences",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug executable 'b_not_dividing'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=b_not_dividing",
+                    "--package=b_not_dividing"
+                ],
+                "filter": {
+                    "name": "b_not_dividing",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in executable 'b_not_dividing'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--bin=b_not_dividing",
+                    "--package=b_not_dividing"
+                ],
+                "filter": {
+                    "name": "b_not_dividing",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug executable 'a_prefix_and_suffix_array'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=a_prefix_and_suffix_array",
+                    "--package=a_prefix_and_suffix_array"
+                ],
+                "filter": {
+                    "name": "a_prefix_and_suffix_array",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in executable 'a_prefix_and_suffix_array'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--bin=a_prefix_and_suffix_array",
+                    "--package=a_prefix_and_suffix_array"
+                ],
+                "filter": {
+                    "name": "a_prefix_and_suffix_array",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug executable 'main'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=main",
+                    "--package=main"
+                ],
+                "filter": {
+                    "name": "main",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in executable 'main'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--bin=main",
+                    "--package=main"
+                ],
+                "filter": {
+                    "name": "main",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        }
+    ]
+}
