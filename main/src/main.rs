@@ -2,14 +2,53 @@ pub mod solution {
 
 use crate::io::input::Input;
 use crate::io::output::output;
-use crate::{out, out_line};
+use crate::{out, out_line, minim};
 
 fn solve(input: &mut Input, _test_case: usize) {
-    out_line!("Hello w  orld!");
+    let (n, k): (usize, usize) = input.read();
+
+    let a: Vec<usize> = input.read_vec::<usize>(n).into_iter().map(|x| x-1).collect();
+
+    let cold: Vec<u64> = input.read_vec(k);
+    let hot: Vec<u64> = input.read_vec(k);
+
+    let mut dp = vec![vec![vec![u64::MAX/2; k+1]; 2]; n];
+
+    dp[0][0][k] = cold[a[0]];
+
+    let get_time = |i, j| {
+        if i==j {
+            hot[i]
+        }
+        else {
+            cold[i]
+        }
+    };
+
+    for i in 1..n {
+        for j in 0..k+1 {
+            dp[i][0][j] = dp[i-1][0][j] + get_time(a[i], a[i-1]);
+            dp[i][1][j] = dp[i-1][1][j] + get_time(a[i], a[i-1]);
+        } 
+        dp[i][0][a[i-1]] = dp[i-1][1][a[i]] + hot[a[i]];
+        dp[i][1][a[i-1]] = dp[i-1][0][a[i]] + hot[a[i]];
+        for j in 0..k+1 {
+            minim!(dp[i][0][a[i-1]], dp[i-1][1][j] + cold[a[i]]);
+            minim!(dp[i][1][a[i-1]], dp[i-1][0][j] + cold[a[i]]);
+        }
+    }
+
+    let top_min = *dp[n-1][0].iter().min().unwrap();
+    let bot_min = *dp[n-1][1].iter().min().unwrap();
+
+    out_line!(top_min.min(bot_min));
 }
 
 pub(crate) fn run(mut input: Input) -> bool {
-    solve(&mut input, 1);
+    let t = input.read();
+    for i in 0usize..t {
+        solve(&mut input, i + 1);
+    }
     output().flush();
     input.skip_whitespace();
     !input.peek().is_some()
@@ -151,6 +190,24 @@ impl<'s> Input<'s> {
                 panic!("Input exhausted");
             }
             Some(res) => unsafe { String::from_utf8_unchecked(res) },
+        }
+    }
+
+    fn read_chars(&mut self) -> Vec<char> {
+        match self.next_token() {
+            None => {
+                panic!("Input exhausted");
+            }
+            Some(res) => unsafe { String::from_utf8_unchecked(res).chars().collect() },
+        }
+    }
+
+    pub fn read_digit_string(&mut self) -> Vec<u8> {
+        match self.next_token() {
+            None => {
+                panic!("Input exhausted");
+            }
+            Some(res) => unsafe { String::from_utf8_unchecked(res).chars().map(|c| c.to_digit(10).unwrap() as u8).collect() },
         }
     }
 
@@ -487,6 +544,45 @@ macro_rules! out_line {
     () => {
         output().put(b'\n');
     };
+}
+}
+}
+pub mod math {
+pub mod minim_maxim {
+#[macro_export]
+macro_rules! minim {
+    ($a: expr, $b: expr) => {
+        if $b<$a {
+            $a = $b; 
+        }
+    }
+}
+
+#[macro_export]
+macro_rules! maxim {
+    ($a: expr, $b: expr) => {
+        if $b>$a {
+            $a = $b; 
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn minim_test() {
+        let mut a = 5;
+        minim!(a, 3);
+        assert_eq!(a, 3);
+    }
+    #[test]
+    fn maxim_test() {
+        let mut a = 3;
+        let b = 100;
+        maxim!(a, b);
+        assert_eq!(a, 100);
+    }
+
 }
 }
 }

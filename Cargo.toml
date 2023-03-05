@@ -1,7 +1,11 @@
 [workspace]
 members = [
-    "test_task2",
-    "test_task",
+    "d1_hot_start_up_easy_version",
+    "d_maximum_subarray",
+    "d_counting_factorizations",
+    "c_scoring_subsequences",
+    "b_not_dividing",
+    "a_prefix_and_suffix_array",
     "algo_lib",
     "main"
 ]

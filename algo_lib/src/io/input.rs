@@ -133,6 +133,24 @@ impl<'s> Input<'s> {
         }
     }
 
+    fn read_chars(&mut self) -> Vec<char> {
+        match self.next_token() {
+            None => {
+                panic!("Input exhausted");
+            }
+            Some(res) => unsafe { String::from_utf8_unchecked(res).chars().collect() },
+        }
+    }
+
+    pub fn read_digit_string(&mut self) -> Vec<u8> {
+        match self.next_token() {
+            None => {
+                panic!("Input exhausted");
+            }
+            Some(res) => unsafe { String::from_utf8_unchecked(res).chars().map(|c| c.to_digit(10).unwrap() as u8).collect() },
+        }
+    }
+
     fn read_char(&mut self) -> char {
         self.skip_whitespace();
         self.get().unwrap().into()

@@ -5,6 +5,7 @@ pub mod io;
 pub mod collections;
 pub mod math;
 
+
 #[cfg(test)]
 pub mod tests {
     use super::*;
@@ -68,20 +69,5 @@ pub mod tests {
         let shortest_path = g_weighted.djikstra(0, 3);
 
         assert_eq!(shortest_path, Some((5, vec![0, 1, 2, 3])));
-    }
-
-    #[test]
-    fn math() {
-        use math::{gcd, lcm, primes::factorize};
-
-        assert_eq!(gcd(10, 15), 5);
-        assert_eq!(gcd(10, 0), 10);
-
-        assert_eq!(lcm(10, 15), 30);
-        assert_eq!(lcm(10, 0), 0);
-
-        assert_eq!(factorize(10), vec![(2, 1), (5, 1)]);
-        assert_eq!(factorize(125), vec![(5, 3)]);
-        assert_eq!(factorize(1), vec![]);
     }
 }
