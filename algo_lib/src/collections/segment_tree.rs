@@ -101,7 +101,31 @@ where
     }
 }
 
-
+/// Segment Tree with Lazy Propagation
+/// 
+/// # Arguments
+/// 
+/// * `T` - Data type
+/// 
+/// * `F` - Function to merge data
+/// 
+/// * `G` - Function to update data
+/// 
+/// * `H` - Function to merge lazy
+/// 
+/// # Example
+/// ```
+/// use algo_lib::collections::SegmentTreeRU;
+/// 
+/// let mut seg = SegmentTreeRU::new_from_iter(0..10, 0, |&d1, &d2| a + b, |&d, &l, len| d + l * len as i32, |&l1, &l2| l1 + l2);
+/// 
+/// seg.update_range(2..5, 1);
+/// assert_eq!(seg.query(2..5), 3);
+/// 
+/// seg.update_range(2..5, 1);
+/// assert_eq!(seg.query(2..5), 6);
+/// 
+/// ```
 pub struct SegmentTreeRU<T, F, G, H> {
     n: usize, 
     data: Vec<T>,

@@ -1,37 +1,38 @@
 pub mod solution {
 
+use std::collections::BTreeSet;
+
 use crate::io::input::Input;
 use crate::io::output::output;
-use crate::{out, out_line, maxim};
+use crate::math::modulo::mod_inv;
+use crate::{out, out_line};
 
-const K: usize = 256;
+const MOD: u64 = 998244353;
 
 fn solve(input: &mut Input, _test_case: usize) {
     let n: usize = input.read();
 
-    let a = input.read_vec::<usize>(n);
+    let mut a = 1;
+    let mut b = 1; 
 
-
-    let mut count = vec![1; n];
-
-    for cur in (0..n).step_by(K) {
-        for i in cur..(cur+K).min(n) {
-            for j in i+1..(cur+K).min(n) {
-                if a[i]^j < a[j]^i {
-                    maxim!(count[j], count[i]+1);
-                }
-            }
-        }
+    for i in 1..n {
+        let b_copy = b;
+        b = (a+b) % MOD;
+        a = b_copy;
     }
-    let answer = *count.iter().max().unwrap();
-    out_line!(answer);
+
+    let mut den = 1;
+
+    for i in 0..n {
+        den *= 2;
+        den %= MOD;
+    }
+
+    out_line!((a*mod_inv(den, MOD))%MOD);
 }
 
 pub(crate) fn run(mut input: Input) -> bool {
-    let t = input.read();
-    for i in 0usize..t {
-        solve(&mut input, i + 1);
-    }
+    solve(&mut input, 1);
     output().flush();
     input.skip_whitespace();
     !input.peek().is_some()
@@ -531,296 +532,24 @@ macro_rules! out_line {
 }
 }
 pub mod math {
-pub mod minim_maxim {
-#[macro_export]
-macro_rules! minim {
-    ($a: expr, $b: expr) => {
-        if $b<$a {
-            $a = $b; 
+pub mod modulo {
+
+pub fn mod_pow(base: u64, exponent: u64, modulo: u64) -> u64 {
+    let mut result = 1;
+    let mut base = base;
+    let mut exponent = exponent;
+    while exponent > 0 {
+        if exponent % 2 == 1 {
+            result = result * base % modulo;
         }
+        base = base * base % modulo;
+        exponent /= 2;
     }
+    result
 }
 
-#[macro_export]
-macro_rules! maxim {
-    ($a: expr, $b: expr) => {
-        if $b>$a {
-            $a = $b; 
-        }
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn minim_test() {
-        let mut a = 5;
-        minim!(a, 3);
-        assert_eq!(a, 3);
-    }
-    #[test]
-    fn maxim_test() {
-        let mut a = 3;
-        let b = 100;
-        maxim!(a, b);
-        assert_eq!(a, 100);
-    }
-
-}
-}
-}
-fn main() {
-    let mut sin = std::io::stdin();
-    let input = crate::io::input::Input::new(&mut sin);
-    unsafe {
-        crate::io::output::OUTPUT = Some(crate::io::output::Output::new(Box::new(std::io::stdout())));
-    }
-    crate::solution::run(input);
-}
-put: &mut Input) -> Self {
-                ($($name::read(input),)+)
-            }
-        }
-    }
-}
-
-tuple_readable! {T}
-tuple_readable! {T U}
-tuple_readable! {T U V}
-tuple_readable! {T U V X}
-tuple_readable! {T U V X Y}
-tuple_readable! {T U V X Y Z}
-tuple_readable! {T U V X Y Z A}
-tuple_readable! {T U V X Y Z A B}
-tuple_readable! {T U V X Y Z A B C}
-tuple_readable! {T U V X Y Z A B C D}
-tuple_readable! {T U V X Y Z A B C D E}
-tuple_readable! {T U V X Y Z A B C D E F}
-}
-pub mod output {
-use std::io::Write;
-
-pub struct Output {
-    output: Box<dyn Write>,
-    buf: Vec<u8>,
-    at: usize,
-    auto_flush: bool,
-}
-
-impl Output {
-    const DEFAULT_BUF_SIZE: usize = 4096;
-
-    pub fn new(output: Box<dyn Write>) -> Self {
-        Self {
-            output,
-            buf: vec![0; Self::DEFAULT_BUF_SIZE],
-            at: 0,
-            auto_flush: false,
-        }
-    }
-
-    pub fn new_with_auto_flush(output: Box<dyn Write>) -> Self {
-        Self {
-            output,
-            buf: vec![0; Self::DEFAULT_BUF_SIZE],
-            at: 0,
-            auto_flush: true,
-        }
-    }
-
-    pub fn flush(&mut self) {
-        if self.at != 0 {
-            self.output.write_all(&self.buf[..self.at]).unwrap();
-            self.at = 0;
-            self.output.flush().expect("Couldn't flush output");
-        }
-    }
-
-    pub fn print<T: Writable>(&mut self, s: &T) {
-        s.write(self);
-    }
-
-    pub fn put(&mut self, b: u8) {
-        self.buf[self.at] = b;
-        self.at += 1;
-        if self.at == self.buf.len() {
-            self.flush();
-        }
-    }
-
-    pub fn maybe_flush(&mut self) {
-        if self.auto_flush {
-            self.flush();
-        }
-    }
-
-    pub fn print_per_line<T: Writable>(&mut self, arg: &[T]) {
-        for i in arg {
-            i.write(self);
-            self.put(b'\n');
-        }
-    }
-
-    pub fn print_iter<T: Writable, I: Iterator<Item = T>>(&mut self, iter: I) {
-        let mut first = true;
-        for e in iter {
-            if first {
-                first = false;
-            } else {
-                self.put(b' ');
-            }
-            e.write(self);
-        }
-    }
-
-    pub fn print_iter_ref<'a, T: 'a + Writable, I: Iterator<Item = &'a T>>(&mut self, iter: I) {
-        let mut first = true;
-        for e in iter {
-            if first {
-                first = false;
-            } else {
-                self.put(b' ');
-            }
-            e.write(self);
-        }
-    }
-}
-
-impl Write for Output {
-    fn write(&mut self, buf: &[u8]) -> std::io::Result<usize> {
-        let mut start = 0usize;
-        let mut rem = buf.len();
-        while rem > 0 {
-            let len = (self.buf.len() - self.at).min(rem);
-            self.buf[self.at..self.at + len].copy_from_slice(&buf[start..start + len]);
-            self.at += len;
-            if self.at == self.buf.len() {
-                self.flush();
-            }
-            start += len;
-            rem -= len;
-        }
-        if self.auto_flush {
-            self.flush();
-        }
-        Ok(buf.len())
-    }
-
-    fn flush(&mut self) -> std::io::Result<()> {
-        self.flush();
-        Ok(())
-    }
-}
-
-pub trait Writable {
-    fn write(&self, output: &mut Output);
-}
-
-impl Writable for &str {
-    fn write(&self, output: &mut Output) {
-        output.write_all(self.as_bytes()).unwrap();
-    }
-}
-
-impl Writable for String {
-    fn write(&self, output: &mut Output) {
-        output.write_all(self.as_bytes()).unwrap();
-    }
-}
-
-impl Writable for char {
-    fn write(&self, output: &mut Output) {
-        output.put(*self as u8);
-    }
-}
-
-impl<T: Writable> Writable for [T] {
-    fn write(&self, output: &mut Output) {
-        output.print_iter_ref(self.iter());
-    }
-}
-
-impl<T: Writable> Writable for Vec<T> {
-    fn write(&self, output: &mut Output) {
-        self[..].write(output);
-    }
-}
-
-macro_rules! write_to_string {
-    ($t:ident) => {
-        impl Writable for $t {
-            fn write(&self, output: &mut Output) {
-                self.to_string().write(output);
-            }
-        }
-    };
-}
-
-write_to_string!(u8);
-write_to_string!(u16);
-write_to_string!(u32);
-write_to_string!(u64);
-write_to_string!(u128);
-write_to_string!(usize);
-write_to_string!(i8);
-write_to_string!(i16);
-write_to_string!(i32);
-write_to_string!(i64);
-write_to_string!(i128);
-write_to_string!(isize);
-write_to_string!(f32);
-write_to_string!(f64);
-
-impl<T: Writable, U: Writable> Writable for (T, U) {
-    fn write(&self, output: &mut Output) {
-        self.0.write(output);
-        output.put(b' ');
-        self.1.write(output);
-    }
-}
-
-impl<T: Writable, U: Writable, V: Writable> Writable for (T, U, V) {
-    fn write(&self, output: &mut Output) {
-        self.0.write(output);
-        output.put(b' ');
-        self.1.write(output);
-        output.put(b' ');
-        self.2.write(output);
-    }
-}
-
-pub static mut OUTPUT: Option<Output> = None;
-
-pub fn output() -> &'static mut Output {
-    unsafe {
-        match &mut OUTPUT {
-            None => {
-                panic!("Panic");
-            }
-            Some(output) => output,
-        }
-    }
-}
-
-#[macro_export]
-macro_rules! out {
-    ($first: expr $(,$args:expr )*) => {
-        output().print(&$first);
-        $(output().put(b' ');
-        output().print(&$args);
-        )*
-    }
-}
-
-#[macro_export]
-macro_rules! out_line {
-    ($first: expr $(, $args:expr )* ) => {
-        out!($first $(,$args)*);
-        output().put(b'\n');
-    };
-    () => {
-        output().put(b'\n');
-    };
+pub fn mod_inv(x: u64, modulo: u64) -> u64 {
+    mod_pow(x, modulo - 2, modulo)
 }
 }
 }
