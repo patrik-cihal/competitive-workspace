@@ -1,4 +1,4 @@
-use std::ops::Range;
+use std::ops::{Range, RangeBounds};
 
 pub struct SegmentTree<T, F> {
     n: usize,
@@ -62,11 +62,28 @@ where
         &self.data[i + self.n]
     }
 
-    pub fn query(&self, range: Range<usize>) -> T {
-        self.query_inner(range, 1, 0..self.n)
+    pub fn query(&self, range: impl RangeBounds<usize>) -> T {
+        self.query_inner(range, 1, ..)
     }
 
-    fn query_inner(&self, range: Range<usize>, i: usize, inner_range: Range<usize>) -> T {
+    fn to_range(&self, range: impl RangeBounds<usize>) -> Range<usize> {
+        let start = match range.start_bound() {
+            std::ops::Bound::Included(&p) => p,
+            std::ops::Bound::Excluded(&p) => p+1,
+            std::ops::Bound::Unbounded => 0,
+        };
+        let end = match range.end_bound() {
+            std::ops::Bound::Included(&p) => p+1,
+            std::ops::Bound::Excluded(&p) => p,
+            std::ops::Bound::Unbounded => self.n,
+        };
+        start..end
+    }
+
+    fn query_inner(&self, range: impl RangeBounds<usize>, i: usize, inner_range: impl RangeBounds<usize>) -> T {
+        let range = self.to_range(range);
+        let inner_range = self.to_range(inner_range);
+
         if range.start >= range.end {
             return self.neutral.clone();
         }
@@ -82,4 +99,144 @@ where
     pub fn data(&self) -> &[T] {
         &self.data[self.n..]
     }
+}
+
+
+pub struct SegmentTreeRU<T, F, G, H> {
+    n: usize, 
+    data: Vec<T>,
+    lazy: Vec<Option<T>>, 
+    neutral: T,
+    f: F,
+    g: G,
+    h: H
+}
+
+impl<T, F, G, H> SegmentTreeRU<T, F, G, H> where T: Clone, F: Fn(&T, &T) -> T, G: Fn(&T, &T, usize) -> T, H: Fn(&T, &T) -> T {
+    pub fn new(n: usize, neutral: T, f: F, g: G, h: H) -> Self {
+        let mut size = 1;
+        while size < n {
+            size *= 2;
+        }
+        Self {
+            n: size,
+            data: vec![neutral.clone(); n],
+            lazy: vec![None; n],
+            neutral,
+            f,
+            g,
+            h
+        }
+    }
+
+    pub fn new_from_iter<I>(iter: I, neutral: T, f: F, g: G, h: H) -> Self where I: IntoIterator<Item = T> {
+        let v: Vec<_> = iter.into_iter().collect();
+        let mut size = 1;
+        while size < v.len() {
+            size *= 2;
+        }
+        let mut data = vec![neutral.clone(); 2 * size];
+        for (i, val) in v.into_iter().enumerate() {
+            data[size + i] = val;
+        }
+        for i in (1..size).rev() {
+            data[i] = (f)(&data[2 * i], &data[2 * i + 1]);
+        }
+        Self {
+            n: size,
+            data,
+            lazy: vec![None; 2*size],
+            neutral,
+            f,
+            g,
+            h,
+        }
+    }
+
+    pub fn query(&mut self, range: impl RangeBounds<usize>) -> T {
+        self.query_inner(range, 1, ..)
+    }
+
+    fn propagate(&mut self, i: usize, inner_range: Range<usize>) {
+        let Some(lazy) = self.lazy[i].clone() else {
+            return;
+        };
+        self.data[i] = (self.g)(&self.data[i], &lazy, inner_range.end-inner_range.start);
+        if inner_range.len() != 1 {
+            if let Some(child_lazy) = &self.lazy[i*2] {
+                self.lazy[i*2] = Some((self.h)(child_lazy, &lazy));
+            } else {
+                self.lazy[i*2] = Some(lazy.clone());
+            }
+            if let Some(child_lazy) = &self.lazy[i*2+1] {
+                self.lazy[i*2+1] = Some((self.h)(child_lazy, &lazy));
+            } else {
+                self.lazy[i*2+1] = Some(lazy.clone());
+            }
+        }
+        self.lazy[i] = None;
+    }
+
+    fn query_inner(&mut self, range: impl RangeBounds<usize>, i: usize, inner_range: impl RangeBounds<usize>) -> T {
+        let range = self.to_range(range);
+        let inner_range = self.to_range(inner_range);
+
+        if range.start >= range.end {
+            return self.neutral.clone();
+        }
+
+        self.propagate(i, inner_range.clone());
+
+        if range == inner_range {
+            return self.data[i].clone();
+        }
+
+        let mid = (inner_range.start+inner_range.end)/2;
+        let left = self.query_inner(range.start..mid.min(range.end), i*2, inner_range.start..mid);
+        let right = self.query_inner(mid.max(range.start)..range.end, i*2+1, mid..inner_range.end);
+        (self.f)(&left, &right)
+    }
+
+    pub fn update(&mut self, range: impl RangeBounds<usize>, val: &T) -> T {
+        self.update_inner(range, val, 1, ..)
+    }
+    
+    fn update_inner(&mut self, range: impl RangeBounds<usize>, val: &T, i: usize, inner_range: impl RangeBounds<usize>) -> T {
+        let range = self.to_range(range);
+        let inner_range = self.to_range(inner_range);
+
+        if range.start >= range.end {
+            return self.neutral.clone();
+        }
+
+        self.propagate(i, inner_range.clone());
+
+        if range == inner_range {
+            self.lazy[i] = Some(val.clone());
+            self.propagate(i, inner_range);
+            return self.data[i].clone();
+        }
+
+        let mid = (inner_range.start+inner_range.end)/2;
+        let left = self.update_inner(range.start..mid.min(range.end), val, i*2, inner_range.start..mid);
+        let right = self.update_inner(mid.max(range.start)..range.end, val, i*2+1, mid..inner_range.end);
+
+        (self.f)(&left, &right)
+    }
+
+    fn to_range(&self, range: impl RangeBounds<usize>) -> Range<usize> {
+        let start = match range.start_bound() {
+            std::ops::Bound::Included(&p) => p,
+            std::ops::Bound::Excluded(&p) => p+1,
+            std::ops::Bound::Unbounded => 0,
+        };
+        let end = match range.end_bound() {
+            std::ops::Bound::Included(&p) => p+1,
+            std::ops::Bound::Excluded(&p) => p,
+            std::ops::Bound::Unbounded => self.n,
+        };
+        start..end
+    }
+
+
 }

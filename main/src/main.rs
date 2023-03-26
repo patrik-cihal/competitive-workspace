@@ -2,46 +2,29 @@ pub mod solution {
 
 use crate::io::input::Input;
 use crate::io::output::output;
-use crate::{out, out_line, minim};
+use crate::{out, out_line, maxim};
+
+const K: usize = 256;
 
 fn solve(input: &mut Input, _test_case: usize) {
-    let (n, k): (usize, usize) = input.read();
+    let n: usize = input.read();
 
-    let a: Vec<usize> = input.read_vec::<usize>(n).into_iter().map(|x| x-1).collect();
+    let a = input.read_vec::<usize>(n);
 
-    let cold: Vec<u64> = input.read_vec(k);
-    let hot: Vec<u64> = input.read_vec(k);
 
-    let mut dp = vec![vec![vec![u64::MAX/2; k+1]; 2]; n];
+    let mut count = vec![1; n];
 
-    dp[0][0][k] = cold[a[0]];
-
-    let get_time = |i, j| {
-        if i==j {
-            hot[i]
-        }
-        else {
-            cold[i]
-        }
-    };
-
-    for i in 1..n {
-        for j in 0..k+1 {
-            dp[i][0][j] = dp[i-1][0][j] + get_time(a[i], a[i-1]);
-            dp[i][1][j] = dp[i-1][1][j] + get_time(a[i], a[i-1]);
-        } 
-        dp[i][0][a[i-1]] = dp[i-1][1][a[i]] + hot[a[i]];
-        dp[i][1][a[i-1]] = dp[i-1][0][a[i]] + hot[a[i]];
-        for j in 0..k+1 {
-            minim!(dp[i][0][a[i-1]], dp[i-1][1][j] + cold[a[i]]);
-            minim!(dp[i][1][a[i-1]], dp[i-1][0][j] + cold[a[i]]);
+    for cur in (0..n).step_by(K) {
+        for i in cur..(cur+K).min(n) {
+            for j in i+1..(cur+K).min(n) {
+                if a[i]^j < a[j]^i {
+                    maxim!(count[j], count[i]+1);
+                }
+            }
         }
     }
-
-    let top_min = *dp[n-1][0].iter().min().unwrap();
-    let bot_min = *dp[n-1][1].iter().min().unwrap();
-
-    out_line!(top_min.min(bot_min));
+    let answer = *count.iter().max().unwrap();
+    out_line!(answer);
 }
 
 pub(crate) fn run(mut input: Input) -> bool {
@@ -583,6 +566,261 @@ mod tests {
         assert_eq!(a, 100);
     }
 
+}
+}
+}
+fn main() {
+    let mut sin = std::io::stdin();
+    let input = crate::io::input::Input::new(&mut sin);
+    unsafe {
+        crate::io::output::OUTPUT = Some(crate::io::output::Output::new(Box::new(std::io::stdout())));
+    }
+    crate::solution::run(input);
+}
+put: &mut Input) -> Self {
+                ($($name::read(input),)+)
+            }
+        }
+    }
+}
+
+tuple_readable! {T}
+tuple_readable! {T U}
+tuple_readable! {T U V}
+tuple_readable! {T U V X}
+tuple_readable! {T U V X Y}
+tuple_readable! {T U V X Y Z}
+tuple_readable! {T U V X Y Z A}
+tuple_readable! {T U V X Y Z A B}
+tuple_readable! {T U V X Y Z A B C}
+tuple_readable! {T U V X Y Z A B C D}
+tuple_readable! {T U V X Y Z A B C D E}
+tuple_readable! {T U V X Y Z A B C D E F}
+}
+pub mod output {
+use std::io::Write;
+
+pub struct Output {
+    output: Box<dyn Write>,
+    buf: Vec<u8>,
+    at: usize,
+    auto_flush: bool,
+}
+
+impl Output {
+    const DEFAULT_BUF_SIZE: usize = 4096;
+
+    pub fn new(output: Box<dyn Write>) -> Self {
+        Self {
+            output,
+            buf: vec![0; Self::DEFAULT_BUF_SIZE],
+            at: 0,
+            auto_flush: false,
+        }
+    }
+
+    pub fn new_with_auto_flush(output: Box<dyn Write>) -> Self {
+        Self {
+            output,
+            buf: vec![0; Self::DEFAULT_BUF_SIZE],
+            at: 0,
+            auto_flush: true,
+        }
+    }
+
+    pub fn flush(&mut self) {
+        if self.at != 0 {
+            self.output.write_all(&self.buf[..self.at]).unwrap();
+            self.at = 0;
+            self.output.flush().expect("Couldn't flush output");
+        }
+    }
+
+    pub fn print<T: Writable>(&mut self, s: &T) {
+        s.write(self);
+    }
+
+    pub fn put(&mut self, b: u8) {
+        self.buf[self.at] = b;
+        self.at += 1;
+        if self.at == self.buf.len() {
+            self.flush();
+        }
+    }
+
+    pub fn maybe_flush(&mut self) {
+        if self.auto_flush {
+            self.flush();
+        }
+    }
+
+    pub fn print_per_line<T: Writable>(&mut self, arg: &[T]) {
+        for i in arg {
+            i.write(self);
+            self.put(b'\n');
+        }
+    }
+
+    pub fn print_iter<T: Writable, I: Iterator<Item = T>>(&mut self, iter: I) {
+        let mut first = true;
+        for e in iter {
+            if first {
+                first = false;
+            } else {
+                self.put(b' ');
+            }
+            e.write(self);
+        }
+    }
+
+    pub fn print_iter_ref<'a, T: 'a + Writable, I: Iterator<Item = &'a T>>(&mut self, iter: I) {
+        let mut first = true;
+        for e in iter {
+            if first {
+                first = false;
+            } else {
+                self.put(b' ');
+            }
+            e.write(self);
+        }
+    }
+}
+
+impl Write for Output {
+    fn write(&mut self, buf: &[u8]) -> std::io::Result<usize> {
+        let mut start = 0usize;
+        let mut rem = buf.len();
+        while rem > 0 {
+            let len = (self.buf.len() - self.at).min(rem);
+            self.buf[self.at..self.at + len].copy_from_slice(&buf[start..start + len]);
+            self.at += len;
+            if self.at == self.buf.len() {
+                self.flush();
+            }
+            start += len;
+            rem -= len;
+        }
+        if self.auto_flush {
+            self.flush();
+        }
+        Ok(buf.len())
+    }
+
+    fn flush(&mut self) -> std::io::Result<()> {
+        self.flush();
+        Ok(())
+    }
+}
+
+pub trait Writable {
+    fn write(&self, output: &mut Output);
+}
+
+impl Writable for &str {
+    fn write(&self, output: &mut Output) {
+        output.write_all(self.as_bytes()).unwrap();
+    }
+}
+
+impl Writable for String {
+    fn write(&self, output: &mut Output) {
+        output.write_all(self.as_bytes()).unwrap();
+    }
+}
+
+impl Writable for char {
+    fn write(&self, output: &mut Output) {
+        output.put(*self as u8);
+    }
+}
+
+impl<T: Writable> Writable for [T] {
+    fn write(&self, output: &mut Output) {
+        output.print_iter_ref(self.iter());
+    }
+}
+
+impl<T: Writable> Writable for Vec<T> {
+    fn write(&self, output: &mut Output) {
+        self[..].write(output);
+    }
+}
+
+macro_rules! write_to_string {
+    ($t:ident) => {
+        impl Writable for $t {
+            fn write(&self, output: &mut Output) {
+                self.to_string().write(output);
+            }
+        }
+    };
+}
+
+write_to_string!(u8);
+write_to_string!(u16);
+write_to_string!(u32);
+write_to_string!(u64);
+write_to_string!(u128);
+write_to_string!(usize);
+write_to_string!(i8);
+write_to_string!(i16);
+write_to_string!(i32);
+write_to_string!(i64);
+write_to_string!(i128);
+write_to_string!(isize);
+write_to_string!(f32);
+write_to_string!(f64);
+
+impl<T: Writable, U: Writable> Writable for (T, U) {
+    fn write(&self, output: &mut Output) {
+        self.0.write(output);
+        output.put(b' ');
+        self.1.write(output);
+    }
+}
+
+impl<T: Writable, U: Writable, V: Writable> Writable for (T, U, V) {
+    fn write(&self, output: &mut Output) {
+        self.0.write(output);
+        output.put(b' ');
+        self.1.write(output);
+        output.put(b' ');
+        self.2.write(output);
+    }
+}
+
+pub static mut OUTPUT: Option<Output> = None;
+
+pub fn output() -> &'static mut Output {
+    unsafe {
+        match &mut OUTPUT {
+            None => {
+                panic!("Panic");
+            }
+            Some(output) => output,
+        }
+    }
+}
+
+#[macro_export]
+macro_rules! out {
+    ($first: expr $(,$args:expr )*) => {
+        output().print(&$first);
+        $(output().put(b' ');
+        output().print(&$args);
+        )*
+    }
+}
+
+#[macro_export]
+macro_rules! out_line {
+    ($first: expr $(, $args:expr )* ) => {
+        out!($first $(,$args)*);
+        output().put(b'\n');
+    };
+    () => {
+        output().put(b'\n');
+    };
 }
 }
 }

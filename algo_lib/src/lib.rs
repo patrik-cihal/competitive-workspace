@@ -27,6 +27,28 @@ pub mod tests {
     }
 
     #[test]
+    fn segment_tree_ru() {
+        use collections::segment_tree::SegmentTreeRU;
+        let mut tree = SegmentTreeRU::new_from_iter(
+            vec![0, 1, 5, 7, 2, 8],
+            0,
+            |a, b| *a.max(b),
+            |d, l, length| d+*l,
+            |l1, l2| *l1+l2
+        );
+
+        tree.update(0..5, &2);
+
+        assert_eq!(tree.query(0..3), 7);
+
+        tree.update(0..5, &2);
+
+        assert_eq!(tree.query(0..3), 9);
+    }
+
+
+
+    #[test]
     fn disjoint_set() {
         use collections::disjoint_set::DisjointSet;
 
